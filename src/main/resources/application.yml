@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: usedcar-inventory
+
+  datasource:
+    # ファイルベース H2 (.data/usedcar.mv.db)。AUTO_SERVER で複数接続を許可
+    url: jdbc:h2:file:./.data/usedcar;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: Asia/Tokyo
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      write-date-timestamps-as-nanoseconds: false
+    time-zone: Asia/Tokyo
+    default-property-inclusion: always
+
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          no-cache: true
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force-response: false
+
+# デモ用サンプルデータ（DB が空のときに 1 回だけ投入）
+app:
+  demo-data:
+    enabled: true
+  inspection-alert-days: 30
+  long-stock-days: 90
+
+logging:
+  level:
+    root: INFO
+    com.usedcar: INFO
